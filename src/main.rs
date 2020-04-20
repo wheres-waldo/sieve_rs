@@ -7,7 +7,7 @@ fn eratosthenes(sieve: Vec<i32>) -> Vec<i32> {
 }
 
 fn cross_out(sieve: Vec<i32>) -> Vec<i32> {
-    let end = (*sieve.last().unwrap() as f32).sqrt().abs() as i32;
+    let end = (*sieve.last().unwrap() as f32).sqrt().trunc() as i32;
 
     let mut answer = sieve.clone();
     let mut current = *sieve.first().unwrap();
