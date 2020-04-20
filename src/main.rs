@@ -1,30 +1,33 @@
 use std::env;
 
 fn eratosthenes(sieve: &[i32]) -> Vec<i32> {
-    let mut answer = sieve.to_vec();
-    let first = sieve[0];
-    answer = cross_out(answer, first);
+    let mut answer = cross_out(sieve.to_vec());
     answer.insert(0, 2);
     answer
 }
 
-fn cross_out(sieve: Vec<i32>, current: i32) -> Vec<i32> {
+fn cross_out(sieve: Vec<i32>) -> Vec<i32> {
     let end = {
         let x = *sieve.last().unwrap() as f32;
         x.sqrt().abs() as i32
     };
 
-    if current >= end {
-        return sieve;
+    let mut answer: Vec<i32> = sieve.clone();
+    let mut current = *sieve.first().unwrap();
+    let mut i = 1;
+
+    while current <= end {
+
+        let (mut l, r): (Vec<_>, Vec<_>) = answer.iter().copied().partition(|&x| x < current.pow(2));
+        let shifted: Vec<_> = r.iter().copied().filter(|&x| x % current != 0).collect();
+
+        l.extend_from_slice(&shifted);
+        answer = l;
+        current = *answer.get(i).unwrap();
+        i += 1;
     }
 
-    let next = *sieve.get(1).unwrap();
-    let (mut l, r): (Vec<_>, Vec<_>) = sieve.iter().copied().partition(|&x| x < current.pow(2));
-    let shifted: Vec<_> = r.iter().copied().filter(|&x| x % current != 0).collect();
-
-    l.extend_from_slice(&shifted);
-
-    cross_out(l, next)
+    answer
 }
 
 fn main() {
