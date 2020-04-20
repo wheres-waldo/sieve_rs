@@ -10,7 +10,7 @@ fn main() {
 
     sieve = if let Some(i) = args.get(1) {
         if let Ok(i) = i.parse::<i32>() {
-            Some((1..i).collect())
+            Some((1..=i).collect())
         } else {
             None
         }
@@ -20,7 +20,7 @@ fn main() {
 
     let answer = match sieve {
         Some(sieve) => eratosthenes(sieve),
-        None => eratosthenes((1..30).collect()),
+        None => eratosthenes((1..=30).collect()),
     };
 
     println!("{:?}", answer);
