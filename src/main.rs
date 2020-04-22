@@ -1,7 +1,7 @@
 use std::env;
 
 fn eratosthenes(sieve: Vec<i32>) -> Vec<i32> {
-    let mut answer = cross_out(sieve.to_vec());
+    let mut answer = cross_out(sieve);
     answer.insert(0, 2);
     answer
 }
