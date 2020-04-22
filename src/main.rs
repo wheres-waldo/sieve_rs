@@ -16,9 +16,9 @@ fn cross_out(sieve: Vec<i32>) -> Vec<i32> {
     while current <= end {
         let (mut l, r): (Vec<_>, Vec<_>) =
             answer.iter().copied().partition(|&x| x < current.pow(2));
-        let shifted: Vec<_> = r.iter().copied().filter(|&x| x % current != 0).collect();
+        let sifted: Vec<_> = r.iter().copied().filter(|&x| x % current != 0).collect();
 
-        l.extend_from_slice(&shifted);
+        l.extend_from_slice(&sifted);
         answer = l;
         current = *answer.get(i).unwrap();
         i += 1;
